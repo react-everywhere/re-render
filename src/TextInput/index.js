@@ -13,9 +13,15 @@ const styles = StyleSheet.create({
 
 class TextInputWeb extends React.Component {
     render() {
+        const borderColor = {
+            borderColor: this.props.underlineColor || 'gray'
+        };
+        const defaultStyle = StyleSheet.flatten([this.props.style, styles.textInput]);
+
+        const style = {...defaultStyle, ...borderColor};
         return (
             <TextInput {...this.props}
-                       style={[this.props.style, styles.textInput, {borderColor: this.props.underlineColor || 'gray'}]}
+                       style={style}
             />
         );
     }
