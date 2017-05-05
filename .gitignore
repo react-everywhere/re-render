@@ -65,3 +65,6 @@ typings/
 
 # Webstorm
 .idea
+
+# Transpiled Code
+dist
