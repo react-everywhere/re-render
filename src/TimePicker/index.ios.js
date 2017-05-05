@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { DatePickerIOS } from 'react-native';
 import Moment from 'moment';
@@ -39,10 +40,10 @@ class TimePicker extends Component {
 
 
 TimePicker.propTypes = {
-    onTimeChange: React.PropTypes.func,
+    onTimeChange: PropTypes.func,
 
-    defaultTime: React.PropTypes.oneOfType([React.PropTypes.instanceOf(Date), React.PropTypes.number]),
-    is24Hour: React.PropTypes.bool,
+    defaultTime: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.number]),
+    is24Hour: PropTypes.bool,
 };
 
 export default TimePicker;

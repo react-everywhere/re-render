@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Icon } from 'react-native-elements';
 
 export default class IconButton extends React.Component {
@@ -22,8 +23,8 @@ export default class IconButton extends React.Component {
 }
 
 IconButton.propTypes = {
-    name: React.PropTypes.string.isRequired,
-    color: React.PropTypes.string,
-    onPress: React.PropTypes.func,
-    containerStyle: React.PropTypes.object,
+    name: PropTypes.string.isRequired,
+    color: PropTypes.string,
+    onPress: PropTypes.func,
+    containerStyle: PropTypes.object,
 };

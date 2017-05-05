@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { ActivityIndicator } from 'react-native';
 
@@ -13,6 +14,6 @@ export default class Spinner extends React.Component {
 }
 
 Spinner.propTypes = {
-    color: React.PropTypes.string,
-    size: React.PropTypes.number,
+    color: PropTypes.string,
+    size: PropTypes.number,
 };

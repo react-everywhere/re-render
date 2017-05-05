@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
 import Label from '../Label';
@@ -30,12 +31,12 @@ export default class RadioGroup extends React.Component {
                                  id={child.props.id}
                                  title={child.props.title}
                                  onCheckedChange={this.onItemChange}
-                                 checked={child.props.id===this.state.selectedId}/>);
+                                 checked={child.props.id === this.state.selectedId}/>);
         });
 
         return (
             <View>
-                <Label value={this.props.title} style={{marginBottom:10}}/>
+                <Label value={this.props.title} style={{marginBottom: 10}}/>
                 {choices}
             </View>
         )
@@ -54,7 +55,7 @@ export default class RadioGroup extends React.Component {
 }
 
 RadioGroup.propTypes = {
-    title: React.PropTypes.string.isRequired,
-    onSelectionChange: React.PropTypes.func,
+    title: PropTypes.string.isRequired,
+    onSelectionChange: PropTypes.func,
 };
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import RN from 'react-native';
 
 const HorizontalDivider = ({thickness, color}) => {
@@ -12,8 +13,8 @@ const HorizontalDivider = ({thickness, color}) => {
 };
 
 HorizontalDivider.propTypes = {
-    thickness: React.PropTypes.number.isRequired,
-    color: React.PropTypes.string,
+    thickness: PropTypes.number.isRequired,
+    color: PropTypes.string,
 };
 
 export default HorizontalDivider;

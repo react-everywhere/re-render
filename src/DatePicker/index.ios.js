@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { DatePickerIOS } from 'react-native';
 
 
@@ -34,9 +35,8 @@ class DatePicker extends Component {
 }
 
 DatePicker.propTypes = {
-    onDateChange: React.PropTypes.func,
-
-    defaultDate: React.PropTypes.instanceOf(Date),
+    onDateChange: PropTypes.func,
+    defaultDate: PropTypes.instanceOf(Date),
 };
 
 export default DatePicker;

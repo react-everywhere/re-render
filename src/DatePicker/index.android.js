@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { DatePickerAndroid, Text, TouchableHighlight, View } from 'react-native';
 import Moment from 'moment';
 
@@ -57,10 +58,10 @@ class DatePicker extends Component {
 
 
 DatePicker.propTypes = {
-    placeholder: React.PropTypes.string,
-    onDateChange: React.PropTypes.func,
+    placeholder: PropTypes.string,
+    onDateChange: PropTypes.func,
 
-    defaultDate: React.PropTypes.oneOfType([React.PropTypes.instanceOf(Date), React.PropTypes.string]),
+    defaultDate: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string]),
 };
 
 export default DatePicker;

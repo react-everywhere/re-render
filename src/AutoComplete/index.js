@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { ListView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 const styles = {
@@ -107,8 +108,8 @@ AutoComplete.defaultProps = {
 };
 
 AutoComplete.propTypes = {
-    placeholder: React.PropTypes.string,
-    list: React.PropTypes.array.isRequired,
-    ignoreCase: React.PropTypes.bool,
-    onItemSelected: React.PropTypes.func,
+    placeholder: PropTypes.string,
+    list: PropTypes.array.isRequired,
+    ignoreCase: PropTypes.bool,
+    onItemSelected: PropTypes.func,
 };

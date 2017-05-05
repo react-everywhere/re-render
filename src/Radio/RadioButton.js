@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { CheckBox as RB } from 'react-native-elements';
 
@@ -37,13 +38,13 @@ export default class RadioButton extends React.Component {
 
     afterSetStateCallback = () => {
         if (this.props.onCheckedChange)
-            this.props.onCheckedChange(this.props.id,this.state.checked)
+            this.props.onCheckedChange(this.props.id, this.state.checked)
     }
 }
 
 RadioButton.propTypes = {
-    title: React.PropTypes.string.isRequired,
-    checked: React.PropTypes.bool.isRequired,
-    onCheckedChange: React.PropTypes.func,
-    color: React.PropTypes.string,
+    title: PropTypes.string.isRequired,
+    checked: PropTypes.bool.isRequired,
+    onCheckedChange: PropTypes.func,
+    color: PropTypes.string,
 };

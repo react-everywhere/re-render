@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { ListView, Text, TouchableOpacity, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 
@@ -108,32 +109,32 @@ Dropdown.propTypes = {
     /**
      * An array of objects of the format {key:1,value:''}
      */
-    list: React.PropTypes.arrayOf(React.PropTypes.shape({
-        key: React.PropTypes.number.isRequired,
-        value: React.PropTypes.string.isRequired,
+    list: PropTypes.arrayOf(PropTypes.shape({
+        key: PropTypes.number.isRequired,
+        value: PropTypes.string.isRequired,
     })).isRequired,
     /**
      * The default text to be shown when nothing is selected.
      */
-    placeholder: React.PropTypes.string,
+    placeholder: PropTypes.string,
     /**
      * Callback to be invoked when a dropdown item is selected.
      */
-    onItemSelected: React.PropTypes.func,
+    onItemSelected: PropTypes.func,
     /**
      * Height of the dropdown list(default height = 200)
      */
-    listHeight: React.PropTypes.number,
+    listHeight: PropTypes.number,
     /**
      * Background color of dropdown's in collapsed state.
      */
-    placeholderBackground: React.PropTypes.string,
+    placeholderBackground: PropTypes.string,
     /**
      * Text and icon color of dropdown in collapsed state.
      */
-    placeholderColor: React.PropTypes.string,
+    placeholderColor: PropTypes.string,
     /**
      * Style of single list item.
      */
-    itemStyle: React.PropTypes.object,
+    itemStyle: PropTypes.object,
 };

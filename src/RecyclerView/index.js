@@ -4,6 +4,7 @@
  * Implementing something like `onItemClick` is a tedious task
  * & a repetitive one. More APIs will be coming soon.
  */
+import PropTypes from 'prop-types';
 import React from 'react';
 import { ListView, TouchableOpacity } from 'react-native';
 
@@ -38,21 +39,22 @@ class RecyclerView extends React.Component {
     render() {
         const {renderRow, onItemClicked} = this.props;
         return (
-            <ListView enableEmptySections={true} {...this.props} renderRow={(rowData, sectionId, rowId, highlightRow) => {
-                if (onItemClicked === undefined) {
-                    return renderRow(rowData, sectionId, rowId, highlightRow);
-                }
+            <ListView enableEmptySections={true} {...this.props}
+                      renderRow={(rowData, sectionId, rowId, highlightRow) => {
+                          if (onItemClicked === undefined) {
+                              return renderRow(rowData, sectionId, rowId, highlightRow);
+                          }
 
-                return (
-                    <RecyclerViewItem onClick={this.onItemClick}
-                                      rowData={rowData}
-                                      sectionId={sectionId}
-                                      rowId={rowId}
-                                      highlightRow={highlightRow}>
-                        {renderRow(rowData, sectionId, rowId, highlightRow)}
-                    </RecyclerViewItem>
-                )
-            }}/>
+                          return (
+                              <RecyclerViewItem onClick={this.onItemClick}
+                                                rowData={rowData}
+                                                sectionId={sectionId}
+                                                rowId={rowId}
+                                                highlightRow={highlightRow}>
+                                  {renderRow(rowData, sectionId, rowId, highlightRow)}
+                              </RecyclerViewItem>
+                          )
+                      }}/>
         )
     }
 
@@ -63,7 +65,7 @@ class RecyclerView extends React.Component {
 
 RecyclerView.PropTypes = {
     ...ListView.PropTypes,
-    onItemClicked: React.PropTypes.func
+    onItemClicked: PropTypes.func
 };
 
 

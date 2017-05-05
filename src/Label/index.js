@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Text } from 'react-native';
 
 class Label extends React.Component {
@@ -15,6 +16,6 @@ class Label extends React.Component {
 export default Label;
 
 Label.propTypes = {
-    value: React.PropTypes.string.isRequired,
-    style: React.PropTypes.object,
+    value: PropTypes.string.isRequired,
+    style: PropTypes.object,
 };

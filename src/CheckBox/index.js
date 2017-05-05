@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { CheckBox as CB } from 'react-native-elements';
 
 const iconType = ['check-square-o', 'check-square'];
@@ -40,9 +41,9 @@ export default class CheckBox extends React.Component {
 }
 
 CheckBox.propTypes = {
-    title: React.PropTypes.string.isRequired,
-    checked: React.PropTypes.bool.isRequired,
-    onCheckedChange: React.PropTypes.func,
-    checkboxColor: React.PropTypes.string,
-    checkedIcon: React.PropTypes.oneOf(iconType)
+    title: PropTypes.string.isRequired,
+    checked: PropTypes.bool.isRequired,
+    onCheckedChange: PropTypes.func,
+    checkboxColor: PropTypes.string,
+    checkedIcon: PropTypes.oneOf(iconType)
 };

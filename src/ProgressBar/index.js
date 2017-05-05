@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { ProgressBar as PB } from 'react-native-web';
 
@@ -15,8 +16,8 @@ export default class ProgressBar extends React.Component {
 }
 
 ProgressBar.propTypes = {
-    color: React.PropTypes.string,
-    indeterminate: React.PropTypes.bool,
-    progress: React.PropTypes.number,
-    trackColor: React.PropTypes.string,
+    color: PropTypes.string,
+    indeterminate: PropTypes.bool,
+    progress: PropTypes.number,
+    trackColor: PropTypes.string,
 };

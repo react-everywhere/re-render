@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Text, TouchableOpacity } from 'react-native';
 import { defaultStyles } from './Styles';
 
@@ -29,7 +30,7 @@ class CustomButton extends React.Component {
         return (
             <TouchableOpacity
                 {...touchableProps}
-                style={{...defaultStyles.button,...rest}}>
+                style={{...defaultStyles.button, ...rest}}>
 
                 <Text style={{color}}>
                     {this.props.title.toUpperCase()}
@@ -50,7 +51,7 @@ class CustomButton extends React.Component {
 export default CustomButton;
 
 CustomButton.propTypes = {
-    title: React.PropTypes.string.isRequired,
-    onPress: React.PropTypes.func.isRequired,
-    disabled: React.PropTypes.bool,
+    title: PropTypes.string.isRequired,
+    onPress: PropTypes.func.isRequired,
+    disabled: PropTypes.bool,
 };

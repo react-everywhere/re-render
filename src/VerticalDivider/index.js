@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import RN from 'react-native';
 
@@ -13,8 +14,8 @@ const VerticalDivider = ({thickness, color}) => {
 };
 
 VerticalDivider.propTypes = {
-    thickness: React.PropTypes.number.isRequired,
-    color: React.PropTypes.string,
+    thickness: PropTypes.number.isRequired,
+    color: PropTypes.string,
 };
 
 export default VerticalDivider;

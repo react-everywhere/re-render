@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import Label from '../Label';
 import CheckBox from '../CheckBox';
@@ -33,7 +34,7 @@ export default class MultiSelect extends React.Component {
     render() {
         return (
             <View>
-                <Label value={this.props.title} style={{marginBottom:10}}/>
+                <Label value={this.props.title} style={{marginBottom: 10}}/>
                 {this.state.choices}
             </View>
         )
@@ -60,8 +61,8 @@ export default class MultiSelect extends React.Component {
 }
 
 MultiSelect.propTypes = {
-    title: React.PropTypes.string.isRequired,
-    onSelectionChange: React.PropTypes.func,
+    title: PropTypes.string.isRequired,
+    onSelectionChange: PropTypes.func,
 };
 
 
@@ -74,8 +75,8 @@ export class MultiSelectItem extends React.Component {
         let {selected} = this.props;
         return (
             <CheckBox {...this.props}
-                checked={selected}
-                onCheckedChange={this.onCheckedChange}/>
+                      checked={selected}
+                      onCheckedChange={this.onCheckedChange}/>
         );
     }
 
@@ -86,8 +87,8 @@ export class MultiSelectItem extends React.Component {
 
 
 MultiSelectItem.propTypes = {
-    id: React.PropTypes.number.isRequired,
-    title: React.PropTypes.string.isRequired,
-    selected: React.PropTypes.bool.isRequired,
-    onItemChange: React.PropTypes.func,
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    selected: PropTypes.bool.isRequired,
+    onItemChange: PropTypes.func,
 };

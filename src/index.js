@@ -17,10 +17,11 @@ import Spinner from './Spinner';
 import TextArea from './TextArea';
 import TextInput from './TextInput';
 import TimePicker from './TimePicker';
+import VerticalDivider from './VerticalDivider';
 
 module.exports = {
     AutoComplete, Button, CheckBox, DatePicker, Divider,
     Dropdown, HorizontalDivider, IconButton, Image, Label, MultiSelect,
     ProgressBar, RadioGroup, RadioButton, RecyclerView,
-    Spinner, TextArea, TextInput, TimePicker
+    Spinner, TextArea, TextInput, TimePicker, VerticalDivider
 };

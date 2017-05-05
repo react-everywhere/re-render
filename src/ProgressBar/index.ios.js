@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { ProgressViewIOS } from 'react-native';
 
@@ -14,8 +15,8 @@ export default class ProgressBar extends React.Component {
 }
 
 ProgressBar.propTypes = {
-    color: React.PropTypes.string,
+    color: PropTypes.string,
     // TODO: Find a way to make indeterminate progress bar
-    // indeterminate: React.PropTypes.bool,
-    progress: React.PropTypes.number,
+    // indeterminate: PropTypes.bool,
+    progress: PropTypes.number,
 };

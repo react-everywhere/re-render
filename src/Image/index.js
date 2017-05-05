@@ -1,5 +1,6 @@
 import React from 'react';
-import {Image as RNImage, TouchableOpacity} from 'react-native';
+import PropTypes from 'prop-types';
+import { Image as RNImage, TouchableOpacity } from 'react-native';
 
 
 //Image is imported as RNImage as the name of class is too Image and same name will cause conflict
@@ -28,7 +29,7 @@ class Image extends React.Component {
 export default Image;
 
 Image.propTypes = {
-    onPress: React.PropTypes.func,
-    width: React.PropTypes.number,
-    height: React.PropTypes.number,
+    onPress: PropTypes.func,
+    width: PropTypes.number,
+    height: PropTypes.number,
 };
