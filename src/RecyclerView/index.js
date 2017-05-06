@@ -59,12 +59,22 @@ class RecyclerView extends React.Component {
     }
 
     onItemClick = (rowData, sectionId, rowId, highlightRow) => {
+        // FIXME:
+        // a dirty hack to prevent multiple event fires on web
+        // TODO: find the root cause
+        // currently the item click gets called twice (on web, non touch devices)
+        // the first event fires the way it should be
+        // the second event is a Proxy event object SyntheticMouseEvent
+        // quick fix: check if highlightRow is present
+        // and prevent event propagation if not
+        if (!highlightRow) return;
+
         this.props.onItemClicked(rowData, sectionId, rowId, highlightRow);
     }
 }
 
-RecyclerView.PropTypes = {
-    ...ListView.PropTypes,
+RecyclerView.propTypes = {
+    ...ListView.propTypes,
     onItemClicked: PropTypes.func
 };
 
