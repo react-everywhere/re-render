@@ -6,15 +6,32 @@
  */
 import PropTypes from 'prop-types';
 import React from 'react';
-import { ListView, TouchableOpacity } from 'react-native';
+import { ListView, TouchableOpacity, View } from 'react-native';
 
 class RecyclerViewItem extends React.Component {
     render() {
         // eslint-disable-next-line
-        const {rowData, sectionId, rowId, highlightRow, ...props} = this.props;
-        return (
-            <TouchableOpacity {...props} onPress={this.onPress}/>
-        )
+        const {
+            rowData,
+            sectionId,
+            rowId,
+            highlightRow,
+            overlay,
+            ...props
+        } = this.props;
+
+        if (overlay) {
+            return (
+                <View>
+                    {props.children}
+                    <TouchableOpacity
+                        style={{position: 'absolute', width: '100%', height: '100%'}}
+                        onPress={this.onPress}/>
+                </View>
+            );
+        }
+
+        return <TouchableOpacity {...props} onPress={this.onPress}/>
     }
 
     onPress = () => {
@@ -50,7 +67,8 @@ class RecyclerView extends React.Component {
                                                 rowData={rowData}
                                                 sectionId={sectionId}
                                                 rowId={rowId}
-                                                highlightRow={highlightRow}>
+                                                highlightRow={highlightRow}
+                                                overlay={!this.props.isChildrenFocusable}>
                                   {renderRow(rowData, sectionId, rowId, highlightRow)}
                               </RecyclerViewItem>
                           )
@@ -73,9 +91,14 @@ class RecyclerView extends React.Component {
     }
 }
 
+RecyclerView.defaultProps = {
+    isChildrenFocusable: false
+};
+
 RecyclerView.propTypes = {
     ...ListView.propTypes,
-    onItemClicked: PropTypes.func
+    onItemClicked: PropTypes.func,
+    isChildrenFocusable: PropTypes.boolean
 };
 
 
