@@ -1,6 +1,6 @@
 {
   "name": "re-render",
-  "version": "0.0.10",
+  "version": "0.0.17",
   "description": "",
   "main": "dist",
   "dependencies": {
