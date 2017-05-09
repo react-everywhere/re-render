@@ -58,11 +58,21 @@ export default class Dropdown extends React.Component {
                         <Text style={{flex: 1, color: this.props.placeholderColor}}>
                             {this.state.selectedItem.value || this.props.placeholder}
                         </Text>
-                        <IconButton
-                            name={this.state.showList ? 'angle-up' : 'angle-down'}
-                            type='font-awesome'
-                            color={this.props.placeholderColor || 'black'}
-                        />
+                        {(!this.state.selectedItem) ?
+                            <IconButton
+                                name={this.state.showList ? 'angle-up' : 'angle-down'}
+                                type='font-awesome'
+                                color={this.props.placeholderColor || 'black'}
+                            /> :
+                            <IconButton
+                                name='close'
+                                type='font-awesome'
+                                color={this.props.placeholderColor || 'black'}
+                                onPress={() => {
+                                    this.setState({selectedItem: ''})
+                                }}
+                            />
+                        }
                     </View>
                 </TouchableOpacity>
 
