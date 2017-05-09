@@ -31,7 +31,6 @@ const styles = {
         borderTopWidth: 0,
     },
 };
-const defaultListHeight = 200;
 
 export default class Dropdown extends React.Component {
     constructor(props) {
@@ -78,7 +77,7 @@ export default class Dropdown extends React.Component {
                     &&
                     <View style={styles.listContainer}>
                         <ListView
-                            style={{maxHeight: this.props.listHeight || defaultListHeight}}
+                            style={{maxHeight: this.props.listHeight}}
                             enableEmptySections={true}
                             dataSource={this.state.dataSource}
                             renderRow={
@@ -104,6 +103,10 @@ export default class Dropdown extends React.Component {
         )
     }
 }
+
+Dropdown.defaultProps = {
+    listHeight: 200
+};
 
 Dropdown.propTypes = {
     /**
