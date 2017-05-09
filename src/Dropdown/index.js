@@ -62,12 +62,12 @@ export default class Dropdown extends React.Component {
                             <IconButton
                                 name={this.state.showList ? 'angle-up' : 'angle-down'}
                                 type='font-awesome'
-                                color={this.props.placeholderColor || 'black'}
+                                color={this.props.placeholderColor}
                             /> :
                             <IconButton
                                 name='close'
                                 type='font-awesome'
-                                color={this.props.placeholderColor || 'black'}
+                                color={this.props.placeholderColor}
                                 onPress={() => {
                                     this.setState({selectedItem: ''})
                                 }}
@@ -109,7 +109,9 @@ export default class Dropdown extends React.Component {
 }
 
 Dropdown.defaultProps = {
-    listHeight: 200
+    listHeight: 200,
+    placeholder: 'Select',
+    placeholderColor: 'black'
 };
 
 Dropdown.propTypes = {
