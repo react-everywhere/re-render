@@ -69,7 +69,7 @@ export default class Dropdown extends React.Component {
                                 type='font-awesome'
                                 color={this.props.placeholderColor}
                                 onPress={() => {
-                                    this.setState({selectedItem: ''})
+                                    this.onItemClicked('')
                                 }}
                             />
                         }
