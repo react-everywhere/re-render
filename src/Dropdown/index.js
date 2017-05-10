@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ListView, Text, TouchableOpacity, View } from 'react-native';
-import { Icon } from 'react-native-elements';
+import RecyclerView from '../RecyclerView';
+import IconButton from '../IconButton';
 
 const styles = {
     container: {
@@ -31,28 +32,20 @@ const styles = {
         borderTopWidth: 0,
     },
 };
-const defaultListHeight = 200;
 
 export default class Dropdown extends React.Component {
     constructor(props) {
         super(props);
 
-        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
-            dataSource: ds.cloneWithRows(props.list),
             showList: false,
             selectedItem: ''
         };
     }
 
-    componentWillReceiveProps(nextProps) {
-        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        this.setState({
-            dataSource: ds.cloneWithRows(nextProps.list),
-        })
-    }
-
     render() {
+        const dataSource = this.ds.cloneWithRows(this.props.list);
         return (
             <View style={styles.container}>
                 <TouchableOpacity
@@ -65,11 +58,21 @@ export default class Dropdown extends React.Component {
                         <Text style={{flex: 1, color: this.props.placeholderColor}}>
                             {this.state.selectedItem.value || this.props.placeholder}
                         </Text>
-                        <Icon
-                            name={this.state.showList ? 'angle-up' : 'angle-down'}
-                            type='font-awesome'
-                            color={this.props.placeholderColor || 'black'}
-                        />
+                        {(!this.state.selectedItem) ?
+                            <IconButton
+                                name={this.state.showList ? 'angle-up' : 'angle-down'}
+                                type='font-awesome'
+                                color={this.props.placeholderColor}
+                            /> :
+                            <IconButton
+                                name='close'
+                                type='font-awesome'
+                                color={this.props.placeholderColor}
+                                onPress={() => {
+                                    this.onItemClicked('')
+                                }}
+                            />
+                        }
                     </View>
                 </TouchableOpacity>
 
@@ -77,25 +80,19 @@ export default class Dropdown extends React.Component {
                     this.state.showList
                     &&
                     <View style={styles.listContainer}>
-                        <ListView
-                            style={{maxHeight: this.props.listHeight || defaultListHeight}}
+                        <RecyclerView
+                            onItemClicked={this.onItemClicked}
+                            style={{maxHeight: this.props.listHeight}}
                             enableEmptySections={true}
-                            dataSource={this.state.dataSource}
-                            renderRow={
-                                (rowData) => (
-                                    <TouchableOpacity
-                                        style={[styles.listItem, this.props.itemStyle]}
-                                        onPress={() => {
-                                            this.setState({showList: false, selectedItem: rowData});
-                                            if (this.props.onItemSelected)
-                                                this.props.onItemSelected(rowData);
-                                        }}>
-                                        <Text style={{marginLeft: 10}}>
-                                            {rowData.value}
-                                        </Text>
-                                    </TouchableOpacity>
-                                )
-                            }
+                            dataSource={dataSource}
+                            renderRow={(rowData) => (
+                                <TouchableOpacity
+                                    style={[styles.listItem, this.props.itemStyle]}>
+                                    <Text style={{marginLeft: 10}}>
+                                        {rowData.value}
+                                    </Text>
+                                </TouchableOpacity>
+                            )}
                         />
                     </View>
                 }
@@ -103,7 +100,19 @@ export default class Dropdown extends React.Component {
             </View>
         )
     }
+
+    onItemClicked = (rowData) => {
+        this.setState({showList: false, selectedItem: rowData});
+        if (this.props.onItemSelected)
+            this.props.onItemSelected(rowData);
+    }
 }
+
+Dropdown.defaultProps = {
+    listHeight: 200,
+    placeholder: 'Select',
+    placeholderColor: 'black'
+};
 
 Dropdown.propTypes = {
     /**
