@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ListView, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import RecyclerView from '../RecyclerView';
 import IconButton from '../IconButton';
 
@@ -37,7 +37,6 @@ export default class Dropdown extends React.Component {
     constructor(props) {
         super(props);
 
-        this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
             showList: false,
             selectedItem: ''
@@ -45,7 +44,6 @@ export default class Dropdown extends React.Component {
     }
 
     render() {
-        const dataSource = this.ds.cloneWithRows(this.props.list);
         return (
             <View style={styles.container}>
                 <TouchableOpacity
@@ -84,7 +82,7 @@ export default class Dropdown extends React.Component {
                             onItemClicked={this.onItemClicked}
                             style={{maxHeight: this.props.listHeight}}
                             enableEmptySections={true}
-                            dataSource={dataSource}
+                            dataSource={this.props.list}
                             renderRow={(rowData) => (
                                 <TouchableOpacity
                                     style={[styles.listItem, this.props.itemStyle]}>
