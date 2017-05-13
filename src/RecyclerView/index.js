@@ -47,33 +47,59 @@ class RecyclerViewItem extends React.Component {
  * It creates a wrapper around the ListView provided by ListView,
  * & exposes an additional API:
  *  - onItemClicked
+ *  - isChildrenFocusable
  *
  * If the API is not used, the RecyclerView
  * mirrors ListView from 'react-native'.
  *
  */
 class RecyclerView extends React.Component {
-    render() {
-        const {renderRow, onItemClicked, isChildrenFocusable} = this.props;
-        return (
-            <ListView enableEmptySections={true} {...this.props}
-                      renderRow={(rowData, sectionId, rowId, highlightRow) => {
-                          if (onItemClicked === undefined) {
-                              return renderRow(rowData, sectionId, rowId, highlightRow);
-                          }
+    constructor(props) {
+        super(props);
+        this.ds = new ListView.DataSource({
+            rowHasChanged: (row1, row2) => {
+                return row1 !== row2;
+            }
+        });
+    }
 
-                          return (
-                              <RecyclerViewItem onClick={this.onItemClick}
-                                                rowData={rowData}
-                                                sectionId={sectionId}
-                                                rowId={rowId}
-                                                highlightRow={highlightRow}
-                                                overlay={!isChildrenFocusable}>
-                                  {renderRow(rowData, sectionId, rowId, highlightRow)}
-                              </RecyclerViewItem>
-                          )
-                      }}/>
-        )
+    render() {
+        const {
+            renderRow,
+            onItemClicked,
+            isChildrenFocusable,
+            dataSource
+        } = this.props;
+
+        // we currently handle both the cases for easier transition
+        // use RecyclerView as the drop in replacement of ListView
+        // & later remove the dataSource whenever convenient :)
+        const clonedDataSource = dataSource instanceof Array ?
+            this.ds.cloneWithRows(dataSource) : dataSource;
+
+        return (
+            <ListView
+                enableEmptySections={true}
+                {...this.props}
+                dataSource={clonedDataSource}
+                renderRow={(rowData, sectionId, rowId, highlightRow) => {
+                    if (onItemClicked === undefined) {
+                        return renderRow(rowData, sectionId, rowId, highlightRow);
+                    }
+
+                    return (
+                        <RecyclerViewItem
+                            onClick={this.onItemClick}
+                            rowData={rowData}
+                            sectionId={sectionId}
+                            rowId={rowId}
+                            highlightRow={highlightRow}
+                            overlay={!isChildrenFocusable}>
+                            {renderRow(rowData, sectionId, rowId, highlightRow)}
+                        </RecyclerViewItem>
+                    )
+                }}/>
+        );
     }
 
     onItemClick = (rowData, sectionId, rowId, highlightRow) => {
@@ -97,6 +123,14 @@ RecyclerView.defaultProps = {
 
 RecyclerView.propTypes = {
     ...ListView.propTypes,
+
+    // override the dataSource
+    // recycler view handles both gracefully :)
+    dataSource: PropTypes.oneOf([
+        PropTypes.instanceOf(Array),
+        PropTypes.instanceOf(ListView.DataSource)
+    ]),
+
     onItemClicked: PropTypes.func,
     isChildrenFocusable: PropTypes.boolean
 };
