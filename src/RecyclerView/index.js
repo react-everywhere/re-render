@@ -54,7 +54,7 @@ class RecyclerViewItem extends React.Component {
  */
 class RecyclerView extends React.Component {
     render() {
-        const {renderRow, onItemClicked} = this.props;
+        const {renderRow, onItemClicked, isChildrenFocusable} = this.props;
         return (
             <ListView enableEmptySections={true} {...this.props}
                       renderRow={(rowData, sectionId, rowId, highlightRow) => {
@@ -68,7 +68,7 @@ class RecyclerView extends React.Component {
                                                 sectionId={sectionId}
                                                 rowId={rowId}
                                                 highlightRow={highlightRow}
-                                                overlay={!this.props.isChildrenFocusable}>
+                                                overlay={!isChildrenFocusable}>
                                   {renderRow(rowData, sectionId, rowId, highlightRow)}
                               </RecyclerViewItem>
                           )
