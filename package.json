@@ -16,17 +16,29 @@
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
-    "babel-preset-react-native": "^1.9.1",
     "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-react-native": "^1.9.1",
+    "jest": "^20.0.1",
+    "jest-react-native": "^18.0.0",
     "json-loader": "^0.5.4",
-    "react": "15.x.x",
-    "react-dom": "15.x.x",
-    "react-native-web": "0.0.94"
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-native-web": "0.0.94",
+    "react-test-renderer": "^15.5.4"
   },
   "scripts": {
     "prepublish": ". ./scripts/transpile.sh",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "jest": {
+    "moduleNameMapper": {
+      "^react-native$": "react-native-web"
+    },
+    "preset": "jest-react-native",
+    "globals": {
+      "__DEV__": true
+    }
+  }
 }
