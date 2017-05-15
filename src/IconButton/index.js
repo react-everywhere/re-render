@@ -20,15 +20,13 @@ export default class IconButton extends React.Component {
         // Uncaught Error: removeComponentAsRefFrom(...): Only a ReactOwner can have refs.
         // You might be removing a ref to a component that was not created inside a component's
         // `render` method, or you have multiple copies of React loaded
-        let {containerStyle, ...iconProps} = props;
         return (
             <TouchableOpacity
-                onPress={onPress}
-                containerStyle={containerStyle}>
+                onPress={onPress}>
                 <Icon
-                    {...iconProps}
-                    type='font-awesome'
-                />
+                    raised={true}
+                    {...props}
+                    type='font-awesome'/>
             </TouchableOpacity>
         )
     }
