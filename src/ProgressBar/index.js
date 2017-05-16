@@ -10,10 +10,14 @@ export default class ProgressBar extends React.Component {
                 color={this.props.color}
                 indeterminate={this.props.indeterminate}
                 progress={this.props.progress}
-                trackColor={this.props.trackColor || '#e0e0e0'}/>
+                trackColor={this.props.trackColor}/>
         )
     }
 }
+
+ProgressBar.defaultProps = {
+    trackColor: '#e0e0e0'
+};
 
 ProgressBar.propTypes = {
     color: PropTypes.string,

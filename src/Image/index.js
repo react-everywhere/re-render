@@ -3,22 +3,18 @@ import PropTypes from 'prop-types';
 import { Image as RNImage, TouchableOpacity } from 'react-native';
 
 
-//Image is imported as RNImage as the name of class is too Image and same name will cause conflict
 class Image extends React.Component {
     render() {
         // eslint-disable-next-line
-        const {children, ...passThroughProps} = this.props;
+        const {children, style, ...passThroughProps} = this.props;
+
+        const styles = {...style, ...{width: this.props.width, height: this.props.height,}};
 
         return (
             <TouchableOpacity
                 onPress={this.props.onPress}>
                 <RNImage {...passThroughProps}
-                         style={{
-                             width: this.props.width || 60,
-                             height: this.props.height || 60,
-                             borderRadius: 30,
-                             marginRight: 20
-                         }}>
+                         style={styles}>
                     {children}
                 </RNImage>
             </TouchableOpacity>
@@ -27,6 +23,11 @@ class Image extends React.Component {
 }
 
 export default Image;
+
+Image.defaultProps = {
+    width: 60,
+    height: 60,
+};
 
 Image.propTypes = {
     onPress: PropTypes.func,

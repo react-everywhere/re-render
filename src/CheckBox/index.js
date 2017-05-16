@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { CheckBox as CB } from 'react-native-elements';
 
-const iconType = ['check-square-o', 'check-square'];
 
 export default class CheckBox extends React.Component {
     constructor(props) {
@@ -13,16 +12,13 @@ export default class CheckBox extends React.Component {
     }
 
     render() {
-        // A user can pass whatever as checkedIcon.
-        // Don't believe me... try passing apple as checkedIcon.
-        // So we added the ternary below :)
         return (
             <CB
                 title={this.props.title}
                 checked={this.state.checked}
-                checkedIcon={iconType.includes(this.props.checkedIcon) ? this.props.checkedIcon : 'check-square'}
-                checkedColor={this.props.checkboxColor || 'black'}
-                uncheckedColor={this.props.checkboxColor || 'black'}
+                checkedIcon={'check-square'}
+                checkedColor={this.props.checkboxColor}
+                uncheckedColor={this.props.checkboxColor}
                 onPress={this.onClick}
             />
         )
@@ -40,10 +36,14 @@ export default class CheckBox extends React.Component {
     }
 }
 
+CheckBox.defaultProps = {
+    checked: false,
+    checkboxColor: 'black',
+};
+
 CheckBox.propTypes = {
     title: PropTypes.string.isRequired,
-    checked: PropTypes.bool.isRequired,
+    checked: PropTypes.bool,
     onCheckedChange: PropTypes.func,
     checkboxColor: PropTypes.string,
-    checkedIcon: PropTypes.oneOf(iconType)
 };
