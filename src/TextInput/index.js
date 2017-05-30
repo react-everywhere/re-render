@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
         height: 40,
         borderColor: 'gray',
         borderBottomWidth: 1,
-        marginVertical: 10,
+        borderWidth: 0,
     }
 });
 
