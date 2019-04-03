@@ -1,24 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash'
-// import './index.css';
 import {
-    TouchableHighlight,
-    ScrollView,
     Keyboard,
     VirtualizedList,
     Text,
+    Platform,
+    StyleSheet,
     TextInput,
     TouchableOpacity,
     View
 } from 'react-native';
 
-const inbuiltStyles = {
+const inbuiltStyles = StyleSheet.create({
     container: {
         width: '100%',
-
+        ...Platform.select({
+            web: {
+                zIndex: 999,
+            }
+        })
+        // flexDirection:'row'
     }
-};
+});
 
 export default class AutoComplete extends React.Component {
     constructor(props) {
@@ -37,7 +41,6 @@ export default class AutoComplete extends React.Component {
 
     ////////////////////////////////////////////////////
     handleSearch = (text) => {
-
         const data = _.filter(this.state.fullData, user => {
             return this.containsQuery(user, text);
         });
@@ -71,12 +74,14 @@ export default class AutoComplete extends React.Component {
             ++c;
             this.setState({cursor: c, counter}, () => this.handleScroll('down'))
         } else {
-            if (e.key === 'Enter')
-            {
-
+            if (e.key === 'Enter') {
                 if (this.state.cursor !== 0) {
-                    console.log('VTlist',this.VTListRef)
-                    console.log('he')
+                    if (this.props.onItemSelected)
+                    {
+                        this.props.onItemSelected(this.VTListRef.props.data[--this.state.cursor])
+                        this.setState({value: this.VTListRef.props.data[this.state.cursor][this.props.searchQuery]})
+                    }
+
                     /*const eventItemName = e.target.nextElementSibling.children[0].children[0].getElementsByClassName('active')[0].children[0].innerText
                     this.setState({
                         showList: false,
@@ -110,46 +115,56 @@ export default class AutoComplete extends React.Component {
         const propStyles = this.props;
         return (
             <View style={inbuiltStyles.container}>
-                <View style={{width: '100%'}}>
-                    <TextInput style={propStyles.autoCompleteInputStyle}
-                               placeholder={this.props.placeholder}
-                               value={this.state.value}
-                               onBlur={() => {
-                                   this.setState({
-                                       showList: false,
-                                       cursor: 0,
-                                       counter: 0
-                                   })
-                               }}
-                               onChangeText={value => this.handleSearch(value)}
-                               onKeyPress={(e) => this.handleKeyDown(e)}
-                    />
-                </View>
+                <TextInput style={[{
+                    borderWidth: 1,
+                    borderRadius: 3,
+                    borderColor: 'rgba(1, 140, 207, 0.7)'
+                }, propStyles.autoCompleteInputStyle]}
+                           placeholder={this.props.placeholder}
+                           value={this.state.value}
+                           underlineColorAndroid={'transparent'}
+                           onBlur={() => {
+                               this.setState({
+                                   showList: false,
+                                   cursor: 0,
+                                   counter: 0
+                               })
+                           }}
+                           onChangeText={value => this.handleSearch(value)}
+                           onKeyPress={(e) => this.handleKeyDown(e)}
+                />
                 {this.state.showList ?
                     <View onLayout={(event) => {
                         let {height} = event.nativeEvent.layout
                         this.setState({listContainerHeight: height})
                     }}
-                          style={propStyles.listContainerStyle}>
+                          style={[{position: 'absolute', zIndex: 999, marginTop: 40, backgroundColor: '#fff'}
+                              , propStyles.listContainerStyle]}>
                         <VirtualizedList
                             data={this.state.data}
                             getItemCount={data => data.length}
                             ref={(ref) => {
                                 this.VTListRef = ref;
                             }}
-                            keyboardShouldPersistTaps='always'
+                            keyboardShouldPersistTaps='handled'
                             getItem={(data, index) => data[index]}
                             keyExtractor={(item, index) => item.name}
                             renderItem={
                                 (rowData, key) => (
-                                    <View key={index++} onLayout={(event) => {
-                                        let {height} = event.nativeEvent.layout
-                                        this.setState({listItemHeight: height})
-                                    }}
-                                    style={{backgroundColor:cursor===index?'rgba(1, 140, 207, 0.46)':null}}
-                                    >
+                                    <View key={index++}
+                                          onLayout={(event) => {
+                                              let {height} = event.nativeEvent.layout
+                                              this.setState({listItemHeight: height})
+                                          }}
+                                          style={{backgroundColor: cursor === index ? 'rgba(1, 140, 207, 0.46)' : null}}>
                                         <TouchableOpacity
-                                            style={propStyles.listItemStyle}
+                                            style={[{height: 40,
+                                                justifyContent: 'center',
+                                                borderWidth: 2,
+                                                borderStyle: 'solid',
+                                                borderColor: '#e0e0e0',
+                                                borderTopWidth: 0,
+                                                zIndex: 999},propStyles.listItemStyle]}
                                             onPress={() => {
                                                 this.setState({
                                                     showList: false,
@@ -180,26 +195,6 @@ export default class AutoComplete extends React.Component {
 
 AutoComplete.defaultProps = {
     ignoreCase: false,
-    listContainerStyle: {
-        zIndex: 1,
-        height:300,
-        position: 'absolute',
-        marginTop: 40,
-        backgroundColor: 'transparent',
-        width: 200
-    },
-    autoCompleteInputStyle: {
-        width: 200,
-        height: 40,
-    },
-    listItemStyle: {
-        height: 40,
-        justifyContent: 'center',
-        borderWidth: 2,
-        borderStyle: 'solid',
-        borderColor: '#e0e0e0',
-        borderTopWidth: 0
-    },
     searchQuery: 'name',
     list: [{
         name: 'React',
