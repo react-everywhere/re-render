@@ -2,57 +2,36 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import {View, Text, TouchableOpacity} from 'react-native'
 
-export default class CheckBox extends React.Component {
+export default class RadioButton extends React.Component {
     constructor(props) {
         super(props);
-        let arr = []
-        let i = 0;
-        props.choices.map(item => {
-            const obj = {
-                [`selected${i}`]: false
-
-            }
-            arr.push(obj)
-            i++
-        })
-
-        this.state = {
-            selectedArray: arr
-        }
+        this.state = {}
     }
 
 
     _onPress = (item, index) => {
-        this.state.selectedArray[index][`selected${index}`]=!this.state.selectedArray[index][`selected${index}`]
         this.setState({
             active_index: index
         });
-        if (this.props.onSelect&&this.state.selectedArray[index][`selected${index}`]===true) {
+        if (this.props.onSelect) {
             this.props.onSelect(item, index)
         }
 
     }
 
 
-    checkboxTickmark = (isSelected,key) => {
+    renderRadioCircle = (isSelected) => {
         return (
             <View style={{
-                width:'75%',
-                height:'50%',
-                transform:[
-                    {translateY:'-20%'},
-                    {rotate:'-45deg'},
-                    {scaleY: '-1'},
-                ],
-                clipPath:'polygon(10% 10%, 100% 30%, 100% 50%, 37.5% 50%, 37.5% 100%, 20% 100%)',
-                margin:'50%',
-                borderRadius: this.props.buttonSize >= 30 ? ((this.props.buttonSize / 2) - 8) : 10,
-                backgroundColor: this.state.selectedArray[key][`selected${key}`]===true ? this.props.buttonColor : "transparent",
+                height: this.props.buttonSize/2,
+                width: this.props.buttonSize/2,
+                borderRadius: this.props.buttonSize>=30?((this.props.buttonSize/2)-8):10,
+                backgroundColor: isSelected ? this.props.buttonColor : "transparent",
             }}/>
         )
     }
 
-    checkboxButton = (item, i) => {
+    renderRadioButton = (item, i) => {
         let isSelected = false
         if (this.state.active_index === i) {
             isSelected = true;
@@ -61,9 +40,8 @@ export default class CheckBox extends React.Component {
             <View key={i} style={{
                 flexDirection: this.props.horizontalLabelOrientation ? 'row' : 'column',
                 alignItems: 'center',
-                justifyContent: this.props.horizontalLabelOrientation ? 'flex-start' : 'space-between',
-                paddingTop: 5,
-                paddingRight:this.props.horizontalButtonOrientation?5:0
+                justifyContent:this.props.horizontalLabelOrientation?'flex-start':'space-between',
+                paddingTop:5
             }}>
                 <TouchableOpacity
                     key={i}
@@ -73,13 +51,14 @@ export default class CheckBox extends React.Component {
                         style={[{
                             height: this.props.buttonSize,
                             width: this.props.buttonSize,
+                            borderRadius:this.props.buttonSize-8,
                             borderWidth: 2,
                             borderColor: this.props.buttonColor,
                             alignItems: 'center',
                             justifyContent: 'center',
                         }, this.props.style]}>
                         {
-                            this.checkboxTickmark(isSelected,i)
+                            this.renderRadioCircle(isSelected)
                         }
                     </View>
                 </TouchableOpacity>
@@ -88,47 +67,47 @@ export default class CheckBox extends React.Component {
                 </View>
             </View>
         )
+
     }
 
     render() {
         return (
-            <View style={{width: '100%'}}>
-                <Text style={this.props.titleStyle}>{this.props.title}</Text>
+            <View style={{width:'100%'}}>
+                    <Text style={this.props.titleStyle}>{this.props.title}</Text>
                 <View style={[{
                     flexDirection: this.props.horizontalButtonOrientation ? 'row' : 'column',
-                }, this.props.buttonGroupStyle]}>
-                    {this.props.choices.map((choice, key) => this.checkboxButton(choice, key))}
+                },this.props.buttonGroupStyle]}>
+                    {this.props.choices.map((choice, key) => this.renderRadioButton(choice, key))}
                 </View>
             </View>
         );
     }
 }
 
-CheckBox.defaultProps = {
+RadioButton.defaultProps = {
     titleStyle: {
         fontSize: 21,
         color: '#3c3c3c',
         fontFamily: 'Nunito'
     },
-    horizontalLabelOrientation: true,
-    buttonColor: '#3c3c3c',
-    buttonSize:15
+    horizontalLabelOrientation:true,
+    buttonColor:'#3c3c3c'
 }
-CheckBox.propTypes = {
+RadioButton.propTypes = {
     /**
-     * Callback to be invoked when a Check Box Button is selected
+     * Callback to be invoked when a Radio Button is selected
      */
     onSelect: PropTypes.func,
     /**
-     * Title of the Check Box Button Group
+     * Title of the Radio Button Group
      */
     title: PropTypes.string,
     /**
-     * Style of the Check Box Button Title
+     * Style of the Radio Button Title
      */
     titleStyle: PropTypes.object,
     /**
-     * Size of the Check Box Button Group wrapper
+     * Size of the Radio Button Group wrapper
      */
     buttonGroupStyle: PropTypes.object,
     /**
@@ -138,20 +117,20 @@ CheckBox.propTypes = {
         option: PropTypes.string.isRequired,
     })).isRequired,
     /**
-     * A boolean value to set Check Box Button orientation whether Horizontal or Vertical
+     * A boolean value to set Radio Button orientation whether Horizontal or Vertical
      */
     horizontalButtonOrientation: PropTypes.bool,
     /**
-     * A boolean value to set Check Box Button label's orientation whether Horizontal or Vertical
+     * A boolean value to set Radio Button label's orientation whether Horizontal or Vertical
      */
     horizontalLabelOrientation: PropTypes.bool,
     /**
-     * Size of the Check Box Button
+     * Size of the Radio Button
      */
-    buttonSize: PropTypes.number,
+    buttonSize:PropTypes.number,
     /**
-     * Color of the Check Box Button
+     * Color of the Radio Button
      */
-    buttonColor: PropTypes.string,
+    buttonColor:PropTypes.string,
 
 }
