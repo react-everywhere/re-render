@@ -8,7 +8,7 @@ export default class CButton extends React.Component {
         return (
             <View style={{width:'100%'}}>
                 <TouchableOpacity activeOpacity={activeOpacity} {...passThroughProps}
-                    style={style}>
+                                  style={style}>
                     {this.props.children}
                 </TouchableOpacity>
             </View>
